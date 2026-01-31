@@ -1,0 +1,38 @@
+class anyNStoDNS {
+
+    static String convertToDecimal(String s) {
+        s = s.toUpperCase();
+        int base;
+        int startIndex = 0;
+        if (s.startsWith("0b")) {
+            base = 2;
+            startIndex = 2;
+        } else if (s.startsWith("0x")) {
+            base = 16;
+            startIndex = 2;
+        } else if (s.startsWith("0") && s.length() > 1) {
+            base = 8;
+            startIndex = 1;
+        } else {
+            base = 10;
+        }
+        int value = 0;
+        for (int i = startIndex; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            int digit;
+            if (ch >= '0' && ch <= '9') {
+                digit = ch - '0';
+            } else {
+                digit = ch - 'A' + 10;
+            }
+            value = value * base + digit;
+        }
+        return String.valueOf(value);
+    }
+    public static void main(String[] args) {
+        System.out.println(convertToDecimal("0b1011")); 
+        System.out.println(convertToDecimal("017"));    
+        System.out.println(convertToDecimal("0x1A"));   
+        System.out.println(convertToDecimal("25"));     
+    }
+}
