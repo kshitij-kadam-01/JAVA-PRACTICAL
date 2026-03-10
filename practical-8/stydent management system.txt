@@ -1,0 +1,105 @@
+class Student
+{
+    String name;
+    int regNo;
+    String contactNo;
+
+    void setStudentDetails(String n, int r, String c)
+    {
+        name = n;
+        regNo = r;
+        contactNo = c;
+    }
+
+    void displayStudentDetails()
+    {
+        System.out.println("Name: " + name);
+        System.out.println("Reg No: " + regNo);
+        System.out.println("Contact No: " + contactNo);
+    }
+}
+class Management
+{
+    Student[] s = new Student[100];
+    int count = 0;
+
+    void addStudent(Student st)
+    {
+        s[count] = st;
+        count++;
+    }
+
+    void displayStudents()
+    {
+        for(int i=0;i<count;i++)
+        {
+            s[i].displayStudentDetails();
+        }
+    }
+
+    void searchStudent(int reg)
+    {
+        for(int i=0;i<count;i++)
+        {
+            if(s[i].regNo == reg)
+            {
+                s[i].displayStudentDetails();
+                return;
+            }
+        }
+        System.out.println("Student not found");
+    }
+}
+import java.util.Scanner;
+
+class SMS
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        Management m = new Management();
+
+        while(true)
+        {
+            System.out.println("1 Add Student");
+            System.out.println("2 Display Students");
+            System.out.println("3 Search Student");
+            System.out.println("4 Exit");
+
+            int ch = sc.nextInt();
+
+            switch(ch)
+            {
+                case 1:
+                    Student s = new Student();
+
+                    System.out.print("Enter Name: ");
+                    String name = sc.next();
+
+                    System.out.print("Enter RegNo: ");
+                    int reg = sc.nextInt();
+
+                    System.out.print("Enter Contact: ");
+                    String contact = sc.next();
+
+                    s.setStudentDetails(name, reg, contact);
+
+                    m.addStudent(s);
+                    break;
+
+                case 2:
+                    m.displayStudents();
+                    break;
+
+                case 3:
+                    System.out.print("Enter RegNo to search: ");
+                    int r = sc.nextInt();
+                    m.searchStudent(r);
+                    break;
+
+                case 4:
+                    System.exit(0);
+            }
+        }
+    }
+}

@@ -1,0 +1,116 @@
+import java.util.Scanner;
+
+class LibrarySystem {
+
+    static int[] studentId = new int[100];
+    static String[] studentName = new String[100];
+    static int[] bookId = new int[100];
+    static String[] bookName = new String[100];
+
+    static int count = 0;
+
+    public static void issueBook(Scanner sc) {
+
+        System.out.print("Enter Student ID: ");
+        studentId[count] = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.print("Enter Student Name: ");
+        studentName[count] = sc.nextLine();
+
+        System.out.print("Enter Book ID: ");
+        bookId[count] = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.print("Enter Book Name: ");
+        bookName[count] = sc.nextLine();
+
+        count++;
+
+        System.out.println("Book Issued Successfully!\n");
+    }
+
+    public static void returnBook(Scanner sc) {
+
+        System.out.print("Enter Student ID: ");
+        int id = sc.nextInt();
+
+        boolean found = false;
+
+        for(int i=0;i<count;i++)
+        {
+            if(studentId[i] == id)
+            {
+                System.out.println("Book Returned: " + bookName[i]);
+
+                studentId[i] = 0;
+                studentName[i] = null;
+                bookId[i] = 0;
+                bookName[i] = null;
+
+                found = true;
+            }
+        }
+
+        if(!found)
+        {
+            System.out.println("Record not found");
+        }
+    }
+
+    public static void display() {
+
+        System.out.println("\nIssued Books List\n");
+
+        for(int i=0;i<count;i++)
+        {
+            if(studentId[i] != 0)
+            {
+                System.out.println("Student ID: " + studentId[i]);
+                System.out.println("Student Name: " + studentName[i]);
+                System.out.println("Book ID: " + bookId[i]);
+                System.out.println("Book Name: " + bookName[i]);
+                System.out.println("-------------------------");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        while(true)
+        {
+            System.out.println("\n1. Issue Book");
+            System.out.println("2. Return Book");
+            System.out.println("3. Display Records");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter choice: ");
+            int ch = sc.nextInt();
+
+            switch(ch)
+            {
+                case 1:
+                    issueBook(sc);
+                    break;
+
+                case 2:
+                    returnBook(sc);
+                    break;
+
+                case 3:
+                    display();
+                    break;
+
+                case 4:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
